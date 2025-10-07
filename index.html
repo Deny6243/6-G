@@ -1,39 +1,262 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>6-G Sinfi — eMaktab</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6-G Sinf Sayti</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #dff1ff, #bde0fe);
+      color: #222;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    header {
+      background: #0077ff;
+      color: white;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .buttons {
+      margin: 20px;
+    }
+
+    button {
+      background: #0077ff;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      margin: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #005bd1;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    section {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.8);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 6px 0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .day {
+      background: #f4faff;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    h3 {
+      color: #0077ff;
+      margin-bottom: 8px;
+    }
+
+    /* === TUNGI REJIM === */
+    .dark {
+      background: linear-gradient(135deg, #0a0a0a, #1b1b1b);
+      color: #f8f8f8;
+    }
+
+    .dark header {
+      background: #111;
+    }
+
+    .dark button {
+      background: #222;
+    }
+
+    .dark section {
+      background: rgba(34,34,34,0.8);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+  </style>
 </head>
 <body>
-  <header>
-    <h1>6-G SINFI</h1>
-    <p>🎓 eMaktab — Dars jadvali va o‘quvchilar ro‘yxati</p>
-  </header>
+  <header>📘 6-G Sinf Sayti</header>
 
-  <nav>
-    <button id="showStudentsBtn">👩‍🎓 O‘quvchilar</button>
-    <button id="showScheduleBtn">📅 Dars jadvali</button>
-    <button id="themeBtn">🌗 Tungi rejim</button>
-  </nav>
+  <div class="buttons">
+    <button id="showStudentsBtn">🧑‍🎓 O'quvchilar</button>
+    <button id="showScheduleBtn">📅 Dars Jadvali</button>
+    <button id="themeBtn">🌙 Tungi Rejim</button>
+  </div>
 
-  <main>
-    <section id="students" class="card hidden">
-      <h2>📋 O‘quvchilar ro‘yxati</h2>
-      <ul id="studentList"></ul>
-    </section>
+  <section id="students" class="hidden">
+    <h2>O'quvchilar ro'yxati</h2>
+    <ul id="studentList"></ul>
+  </section>
 
-    <section id="schedule" class="card hidden">
-      <h2>📚 Dars jadvali</h2>
-      <div id="days"></div>
-    </section>
-  </main>
+  <section id="schedule" class="hidden">
+    <h2>Dars Jadvali</h2>
+    <div id="days"></div>
+  </section>
 
-  <footer>
-    <p>© 2025 6-G Sinfi | eMaktab loyihasi 💚</p>
-  </footer>
+  <footer>© 6-G Sinfi | eMaktab loyihasi uchun</footer>
 
-  <script src="script.js"></script>
+  <script>
+    // === O'QUVCHILAR ===
+    const students = [
+      "Al Orifxo'ja Said Odilxon Said Olimxon o'g'li",
+      "Ashurov Humoyun Zamir O'g'li",
+      "Botiraliyeva Aziza Erali qizi",
+      "Davranov Muhammadiso Jamol o’g’li",
+      "Fayzullayev Elshodbek Elbek o’g’li",
+      "Husanova Mushtariy Ergash qizi",
+      "Ilxamboyev Xurrambek Gulomjon O'g'li",
+      "Ismoilov Muslimbek Isomiddinovich",
+      "Jurayeva Dilnura Rustamovna",
+      "Matyoqubova Madinabonu G`ayrat qizi",
+      "Muxtarov Sunnatxon Batir o’g’li",
+      "Nasrullayeva Hadicha Talibjonovna",
+      "Ochilov Mo'minjon Ma'ruf O'g'li",
+      "Pardaboyeva Dariya Yermanovna",
+      "Rajabaliyeva Shirinabonu Sobir qizi",
+      "Sobirova Robiya Shavkat qizi",
+      "Tirkashova Ruhshona Rustam qizi",
+      "Turdibayev Muhammadali Nosirjon o'g'li",
+      "Tuxtasinova Madinabonu Murodjon qizi",
+      "Urazbekova Diana Toxir qizi",
+      "Urolova Laylo Zuxriddin qizi",
+      "Xakimova O’giloy Furqat qizi",
+      "Xamidov Shohjahon Shuxrat o'g'li",
+      "Yo`Ldoshboyeva Rahima Hajixon Qizi",
+      "Yormatova Dilnura Latif qizi",
+      "Zayniddinova Mohichehra Xamroz Qizi",
+      "Shoqulova Sevinch Orzibek qizi",
+      "Shovdirova Marjona Raximjon qizi",
+      "Худайберганова Умида Равшан кизи"
+    ];
+
+    const studentList = document.getElementById("studentList");
+    students.forEach(name => {
+      const li = document.createElement("li");
+      li.textContent = name;
+      studentList.appendChild(li);
+    });
+
+    // === DARS JADVALI ===
+    const schedule = {
+      "Dushanba": [
+        "08:00 - Kelajak soati",
+        "08:45 - Tabiiy fan",
+        "09:30 - Matematika",
+        "10:15 - Ona tili",
+        "11:00 - Ingliz tili"
+      ],
+      "Seshanba": [
+        "08:00 - Tarix",
+        "08:45 - Matematika",
+        "09:30 - Tasviriy san’at",
+        "10:15 - Jismoniy tarbiya"
+      ],
+      "Chorshanba": [
+        "08:00 - Tabiiy fan",
+        "08:45 - Ona tili",
+        "09:35 - Rus tili",
+        "10:20 - Ingliz tili",
+        "11:05 - Matematika",
+        "11:55 - Adabiyot"
+      ],
+      "Payshanba": [
+        "08:00 - Ona tili",
+        "08:45 - Musiqa",
+        "09:30 - Ingliz tili",
+        "10:15 - Tarix",
+        "11:00 - Tarbiya"
+      ],
+      "Juma": [
+        "08:00 - Texnologiya",
+        "09:30 - Matematika",
+        "10:15 - Tabiiy fan",
+        "11:00 - Informatika",
+        "11:45 - Jismoniy tarbiya"
+      ],
+      "Shanba": [
+        "08:00 - Ingliz tili",
+        "08:45 - Rus tili",
+        "09:30 - Matematika",
+        "10:15 - Ona tili",
+        "11:00 - Adabiyot"
+      ]
+    };
+
+    const daysContainer = document.getElementById("days");
+    Object.entries(schedule).forEach(([day, lessons]) => {
+      const div = document.createElement("div");
+      div.className = "day";
+      const title = document.createElement("h3");
+      title.textContent = day;
+      div.appendChild(title);
+
+      const ul = document.createElement("ul");
+      lessons.forEach(lesson => {
+        const li = document.createElement("li");
+        li.textContent = lesson;
+        ul.appendChild(li);
+      });
+
+      div.appendChild(ul);
+      daysContainer.appendChild(div);
+    });
+
+    // === KNOPKALAR ===
+    const studentsSection = document.getElementById("students");
+    const scheduleSection = document.getElementById("schedule");
+
+    document.getElementById("showStudentsBtn").addEventListener("click", () => {
+      studentsSection.classList.toggle("hidden");
+      scheduleSection.classList.add("hidden");
+    });
+
+    document.getElementById("showScheduleBtn").addEventListener("click", () => {
+      scheduleSection.classList.toggle("hidden");
+      studentsSection.classList.add("hidden");
+    });
+
+    // === TUNGI REJIM ===
+    const themeBtn = document.getElementById("themeBtn");
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+    });
+  </script>
 </body>
 </html>
