@@ -9,20 +9,18 @@
 <body>
   <header>
     <h1>6-G sinfi</h1>
-    <p>Bizning sinf a’zolari va yangiliklar</p>
+    <p>eMaktab jadvali va o‘quvchilar ro‘yxati</p>
   </header>
 
   <main>
-    <section class="add-student">
-      <h2>🧍‍♂️ Yangi o‘quvchi qo‘shish</h2>
-      <input type="text" id="studentName" placeholder="Ism Familiya">
-      <input type="text" id="studentInfo" placeholder="Qo‘shimcha ma’lumot (masalan, fan yo‘nalishi)">
-      <button id="addBtn">➕ Qo‘shish</button>
+    <section id="students">
+      <h2>📋 O‘quvchilar ro‘yxati</h2>
+      <ul id="studentList"></ul>
     </section>
 
-    <section class="students">
-      <h2>📋 Sinf ro‘yxati</h2>
-      <ul id="studentList"></ul>
+    <section id="schedule">
+      <h2>📚 Dars jadvali</h2>
+      <div id="days"></div>
     </section>
   </main>
 
