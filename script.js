@@ -1,50 +1,92 @@
-const nameInput = document.getElementById("studentName");
-const infoInput = document.getElementById("studentInfo");
-const addBtn = document.getElementById("addBtn");
+// --- O'QUVCHILAR RO'YXATI ---
+const students = [
+  "Abdullayeva Sofiya",
+  "Kadirova Malohat",
+  "Rustamov Bekzod",
+  "Tursunboyev Muhammad",
+  "Saidov Zafar",
+  "Yusupova Madina",
+  "To‘xtasinova Dilrabo",
+  "Karimov Davron",
+  "Islomova Shahlo",
+  "Sharipov Aziz",
+  "Mamatov Javohir",
+  "Rasulova Shahrizoda",
+  "Ergashev Ibrohim",
+  "Murodov Otabek",
+  "Tursunova Nilufar",
+  "Saidov Kamol",
+  "Ravshanov Nodir",
+  "Xudoyberdiyeva Mohira"
+];
+
 const list = document.getElementById("studentList");
+students.forEach(name => {
+  const li = document.createElement("li");
+  li.textContent = name;
+  list.appendChild(li);
+});
 
-// Local Storage'dan o'quvchilarni yuklash
-let students = JSON.parse(localStorage.getItem("students")) || [];
+// --- DARS JADVALI ---
+const schedule = {
+  "Dushanba": [
+    "1️⃣ Kelajak soati",
+    "2️⃣ Tabiiy fan",
+    "3️⃣ Matematika",
+    "4️⃣ Ona tili",
+    "5️⃣ Ingliz tili"
+  ],
+  "Seshanba": [
+    "1️⃣ Tarix",
+    "2️⃣ Matematika",
+    "3️⃣ Tasviriy san’at",
+    "4️⃣ Jismoniy tarbiya",
+    "5️⃣ Ingliz tili"
+  ],
+  "Chorshanba": [
+    "1️⃣ Tabiiy fan",
+    "2️⃣ Ona tili",
+    "3️⃣ Rus tili",
+    "4️⃣ Ingliz tili",
+    "5️⃣ Adabiyot"
+  ],
+  "Payshanba": [
+    "1️⃣ Matematika",
+    "2️⃣ Texnologiya",
+    "3️⃣ Ona tili",
+    "4️⃣ Informatika",
+    "5️⃣ Tarbiya"
+  ],
+  "Juma": [
+    "1️⃣ Texnologiya",
+    "2️⃣ Rus tili",
+    "3️⃣ Matematika",
+    "4️⃣ Ona tili",
+    "5️⃣ Jismoniy tarbiya"
+  ],
+  "Shanba": [
+    "1️⃣ Ingliz tili",
+    "2️⃣ Matematika",
+    "3️⃣ Adabiyot"
+  ]
+};
 
-function renderList() {
-  list.innerHTML = "";
-  students.forEach((student, index) => {
+const daysContainer = document.getElementById("days");
+Object.entries(schedule).forEach(([day, lessons]) => {
+  const div = document.createElement("div");
+  div.className = "day";
+
+  const title = document.createElement("h3");
+  title.textContent = day;
+  div.appendChild(title);
+
+  const ul = document.createElement("ul");
+  lessons.forEach(lesson => {
     const li = document.createElement("li");
-    li.innerHTML = `
-      <div>
-        <span>${student.name}</span> — <small>${student.info}</small>
-      </div>
-      <button class="deleteBtn" onclick="deleteStudent(${index})">❌</button>
-    `;
-    list.appendChild(li);
+    li.textContent = lesson;
+    ul.appendChild(li);
   });
-}
 
-function addStudent() {
-  const name = nameInput.value.trim();
-  const info = infoInput.value.trim();
-
-  if (name === "") {
-    alert("Iltimos, ism kiriting!");
-    return;
-  }
-
-  students.push({ name, info });
-  localStorage.setItem("students", JSON.stringify(students));
-
-  nameInput.value = "";
-  infoInput.value = "";
-
-  renderList();
-}
-
-function deleteStudent(index) {
-  students.splice(index, 1);
-  localStorage.setItem("students", JSON.stringify(students));
-  renderList();
-}
-
-addBtn.addEventListener("click", addStudent);
-
-// Sayt ochilganda ro'yxatni ko'rsatish
-renderList();
+  div.appendChild(ul);
+  daysContainer.appendChild(div);
+});
