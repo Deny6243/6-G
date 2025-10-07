@@ -1,4 +1,4 @@
-// --- O'QUVCHILAR RO'YXATI ---
+// === O'QUVCHILAR ===
 const students = [
   "Abdullayeva Sofiya",
   "Kadirova Malohat",
@@ -20,54 +20,54 @@ const students = [
   "Xudoyberdiyeva Mohira"
 ];
 
-const list = document.getElementById("studentList");
+const studentList = document.getElementById("studentList");
 students.forEach(name => {
   const li = document.createElement("li");
   li.textContent = name;
-  list.appendChild(li);
+  studentList.appendChild(li);
 });
 
-// --- DARS JADVALI ---
+// === DARS JADVALI ===
 const schedule = {
   "Dushanba": [
-    "1️⃣ Kelajak soati",
-    "2️⃣ Tabiiy fan",
-    "3️⃣ Matematika",
-    "4️⃣ Ona tili",
-    "5️⃣ Ingliz tili"
+    "08:00 - Kelajak soati",
+    "08:45 - Tabiiy fan",
+    "09:30 - Matematika",
+    "10:15 - Ona tili",
+    "11:00 - Ingliz tili"
   ],
   "Seshanba": [
-    "1️⃣ Tarix",
-    "2️⃣ Matematika",
-    "3️⃣ Tasviriy san’at",
-    "4️⃣ Jismoniy tarbiya",
-    "5️⃣ Ingliz tili"
+    "08:00 - Tarix",
+    "08:45 - Matematika",
+    "09:30 - Tasviriy san’at",
+    "10:15 - Jismoniy tarbiya",
+    "11:00 - Ingliz tili"
   ],
   "Chorshanba": [
-    "1️⃣ Tabiiy fan",
-    "2️⃣ Ona tili",
-    "3️⃣ Rus tili",
-    "4️⃣ Ingliz tili",
-    "5️⃣ Adabiyot"
+    "08:00 - Tabiiy fan",
+    "08:45 - Ona tili",
+    "09:30 - Rus tili",
+    "10:15 - Ingliz tili",
+    "11:00 - Adabiyot"
   ],
   "Payshanba": [
-    "1️⃣ Matematika",
-    "2️⃣ Texnologiya",
-    "3️⃣ Ona tili",
-    "4️⃣ Informatika",
-    "5️⃣ Tarbiya"
+    "08:00 - Matematika",
+    "08:45 - Texnologiya",
+    "09:30 - Ona tili",
+    "10:15 - Informatika",
+    "11:00 - Tarbiya"
   ],
   "Juma": [
-    "1️⃣ Texnologiya",
-    "2️⃣ Rus tili",
-    "3️⃣ Matematika",
-    "4️⃣ Ona tili",
-    "5️⃣ Jismoniy tarbiya"
+    "08:00 - Texnologiya",
+    "08:45 - Rus tili",
+    "09:30 - Matematika",
+    "10:15 - Ona tili",
+    "11:00 - Jismoniy tarbiya"
   ],
   "Shanba": [
-    "1️⃣ Ingliz tili",
-    "2️⃣ Matematika",
-    "3️⃣ Adabiyot"
+    "08:00 - Ingliz tili",
+    "08:45 - Matematika",
+    "09:30 - Adabiyot"
   ]
 };
 
@@ -75,7 +75,6 @@ const daysContainer = document.getElementById("days");
 Object.entries(schedule).forEach(([day, lessons]) => {
   const div = document.createElement("div");
   div.className = "day";
-
   const title = document.createElement("h3");
   title.textContent = day;
   div.appendChild(title);
@@ -89,4 +88,24 @@ Object.entries(schedule).forEach(([day, lessons]) => {
 
   div.appendChild(ul);
   daysContainer.appendChild(div);
+});
+
+// === KNOPKALAR ===
+const studentsSection = document.getElementById("students");
+const scheduleSection = document.getElementById("schedule");
+
+document.getElementById("showStudentsBtn").addEventListener("click", () => {
+  studentsSection.classList.toggle("hidden");
+  scheduleSection.classList.add("hidden");
+});
+
+document.getElementById("showScheduleBtn").addEventListener("click", () => {
+  scheduleSection.classList.toggle("hidden");
+  studentsSection.classList.add("hidden");
+});
+
+// === TUNGI REJIM ===
+const themeBtn = document.getElementById("themeBtn");
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
 });
